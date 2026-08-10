@@ -849,7 +849,7 @@ body {
         flex-direction: column !important;
         text-align: center !important;
         padding: 60px 5% 120px !important;
-        min-height: auto !important;
+        min-height: initial !important;
     }
     
     .hero-content {
