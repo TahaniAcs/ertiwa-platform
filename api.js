@@ -1,5 +1,5 @@
 // api.js - ملف مستقل لعمليات السيرفر
-const BASE_URL = 'https://ertwa-backend.onrender.com';
+var BASE_URL = window.BASE_URL || 'https://ertwa-backend.onrender.com';
 
 // 1. دالة جلب الفعاليات للرئيسية
 async function fetchHomeEvents() {
@@ -16,7 +16,7 @@ async function fetchHomeEvents() {
 // 2. دالة تسجيل الدخول (مصححة ومؤمنة)
 async function loginWithAPI(email, password) {
     try {
-        const url = `${BASE_URL}/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`; //[cite: 1]
+        const url = `${BASE_URL}/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`; 
         const response = await fetch(url, {
             method: 'POST',
             headers: { 'accept': 'application/json' }
@@ -41,11 +41,11 @@ async function addNewEvent(eventData) {
             date: eventData.date,
             time: eventData.time,
             location: eventData.location,
-            image: eventData.image || '', //[cite: 1]
+            image: eventData.image || '', 
             token: token
         });
 
-        const response = await fetch(`${BASE_URL}/events?${params.toString()}`, { //[cite: 1]
+        const response = await fetch(`${BASE_URL}/events?${params.toString()}`, { 
             method: 'POST',
             headers: { 
                 'accept': 'application/json'
@@ -71,7 +71,7 @@ async function loadAllEvents() {
     if (!container) return; 
 
     try {
-        const response = await fetch(`${BASE_URL}/events`, { //[cite: 1]
+        const response = await fetch(`${BASE_URL}/events`, { 
             method: 'GET',
             headers: { 'accept': 'application/json' }
         });
