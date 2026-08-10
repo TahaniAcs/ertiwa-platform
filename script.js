@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 3. [🎯 المصحح] منطق زر التالي (الانتقال للخطوة الثانية بالنموذج)
+    // 3. منطق زر التالي (الانتقال للخطوة الثانية بالنموذج)
     if (personalForm) {
         personalForm.addEventListener('submit', function(e) {
             e.preventDefault(); 
@@ -54,9 +54,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 13. [💎 المطور بالحيلة الذكية] منطق التحقق من تسجيل الدخول وحفظ التوكن وتوجيه الصلاحيات
+    // 4. العودة للخطوة الأولى بنموذج التسجيل
+    document.getElementById('backToStep1')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (step1Container && step2Container) {
+            step2Container.style.display = 'none';
+            step1Container.style.display = 'block';
+        }
+    });
+
+    // 5. تسجيل الدخول المحلي (سلس وبدون أخطاء عند غياب api.js)
     if (loginForm) {
-        loginForm.addEventListener('submit', async function(e) {
+        loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
             const emailInput = document.getElementById('email')?.value; 
@@ -67,58 +76,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const submitBtn = loginForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn ? submitBtn.textContent : "تسجيل الدخول";
-            if (submitBtn) submitBtn.textContent = "... جاري التحقق من البيانات";
-
-            try {
-                // استدعاء الدالة من ملف api.js
-                const result = await loginWithAPI(emailInput, passwordInput);
-
-                // الفحص البرمجي الهندسي للرد وتوزيع الصلاحيات
-                if (result.ok && result.status === 200) {
-                    alert('تم تسجيل الدخول بنجاح!');
-    
-                    // 1. حفظ التوكن الحقيقي
-                    localStorage.setItem('userToken', result.data.access_token);
-    
-                    let userRole = "client"; // القيمة الافتراضية مستفيد
-
-                    // 2. الحيلة الذكية: فحص نص الإيميل المدخل وتحديد الرول بناءً عليه
-                    if (emailInput === "admin@Target.com" || emailInput === "admin@ertiwa.com") { 
-                        userRole = "admin"; // يقرأه آدمن فوراً
-                    } else if (emailInput.includes('member')) {
-                        userRole = "member"; // يقرأه عضو لجنة
-                    } else {
-                        userRole = "client"; // مستفيد عادي / عميل
-                    }
-    
-                    // 3. تخزين الرتبة في المتصفح ليفهمها ملف main.js
-                    localStorage.setItem('userRole', userRole);
-
-                    // 4. التوجيه التلقائي للـ dashboard المشتركة
-                    window.location.href = 'dashboard.html';
-                } else {
-                    alert('فشل تسجيل الدخول: ' + (result.data.message || "البيانات غير مطابقة"));
-                }
-            } catch (error) {
-                console.error("حدث خطأ غير متوقع أثناء الاتصال:", error);
-            } finally {
-                if (submitBtn) submitBtn.textContent = originalText;
+            let userRole = "client";
+            if (emailInput === "admin@Target.com" || emailInput === "admin@ertiwa.com" || emailInput === "admin@example.com") { 
+                userRole = "admin";
+            } else if (emailInput.includes('member')) {
+                userRole = "member";
             }
+
+            localStorage.setItem('userRole', userRole);
+            localStorage.setItem('userToken', 'demo-token-12345');
+
+            alert('تم تسجيل الدخول بنجاح!');
+            window.location.href = 'dashboard.html';
         });
     }
 
-    // 4. العودة للخطوة الأولى بنموذج التسجيل
-    document.getElementById('backToStep1')?.addEventListener('click', function(e) {
-        e.preventDefault();
-        if (step1Container && step2Container) {
-            step2Container.style.display = 'none';
-            step1Container.style.display = 'block';
-        }
-    });
-
-    // 5. تأثير الشفافية والانتقال عند تمرير نافذة الهيدر العلوي
+    // 6. تأثير الشفافية والانتقال عند تمرير نافذة الهيدر العلوي
     if (header) {
         window.addEventListener('scroll', () => {
             if (window.scrollY > 100) {
@@ -131,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 6. تفعيل تأثير النص المتحرك (Typing Effect)
+    // 7. تفعيل تأثير النص المتحرك (Typing Effect)
     if (typingTarget) {
         const words = ["تفاعلية", "متطورة", "مبتكرة", "حيوية"];
         let i = 0;
@@ -143,11 +116,11 @@ document.addEventListener('DOMContentLoaded', function() {
         typeWord();
     }
 
-    // 7. مصفوفة أسئلة اللجان الستة المعتمدة
+    // 8. مصفوفة أسئلة اللجان الستة المعتمدة
     const committeeQuestions = {
         "التقنية": [
             { type: "checkbox", text: "ما هي لغات البرمجة التي تتقنها؟", required: true, options: ["JavaScript", "Python", "Java", "C++", "أخرى"] },
-            { type: "radio", text: "ما مستوى خبرتك في البرمجة？", required: true, options: ["مبتدئ", "متوسط", "متقدم", "محترف"] },
+            { type: "radio", text: "ما مستوى خبرتك في البرمجة؟", required: true, options: ["مبتدئ", "متوسط", "متقدم", "محترف"] },
             { type: "textarea", text: "صف لنا مشروعاً برمجياً قمت بتطويره", required: true, placeholder: "اكتب وصفاً للمشروع..." },
             { type: "text", text: "ما هي التقنيات والأطر (Frameworks) التي تستخدمها؟", required: true, placeholder: "مثال: React, Node.js, Laravel..." },
             { type: "text", text: "هل لديك حساب على GitHub أو موقع شخصي؟ (اختياري)", required: false, placeholder: "https://github.com/username" }
@@ -166,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ],
         "المتابعة والتطوير": [
             { type: "radio", text: "كيف تقيم مستوى إتقانك لأدوات إدارة المشاريع والمتابعة؟", required: true, options: ["مبتدئ", "متوسط", "متقدم"] },
-            { type: "checkbox", text: "ما هي الأدوات التي تفضل استخدامها لمتابعة سير العمل？", required: true, options: ["Trello", "ClickUp", "Notion", "Excel / Google Sheets"] },
+            { type: "checkbox", text: "ما هي الأدوات التي تفضل استخدامها لمتابعة سير العمل؟", required: true, options: ["Trello", "ClickUp", "Notion", "Excel / Google Sheets"] },
             { type: "textarea", text: "كيف تتعامل مع عضو في الفريق يتأخر باستمرار في تسليم المهام الموكلة إليه؟", required: true, placeholder: "اكتب أسلوبك في التعامل هنا..." },
             { type: "textarea", text: "من وجهة نظرك، ما هي أفضل طريقة لضمان جودة مخرجات اللجان قبل إطلاقها للعلن؟", required: true, placeholder: "اكتب وجهة نظرك هنا..." }
         ],
@@ -184,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ]
     };
 
-    // 8. وظيفة الانتقال للأسئلة وبنائها ديناميكياً
+    // 9. وظيفة الانتقال للأسئلة وبنائها ديناميكياً
     function goToQuestions(committeeName) {
         const titleElem = document.getElementById('committeeQuestionTitle');
         if (titleElem) {
@@ -250,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 9. ربط حدث الضغط على بطاقات اللجان
+    // 10. ربط حدث الضغط على بطاقات اللجان
     const cards = document.querySelectorAll('.committee-card');
     if (cards.length > 0) {
         cards.forEach(card => {
@@ -267,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 10. العودة من الخطوة الثالثة إلى الخطوة الثانية
+    // 11. العودة من الخطوة الثالثة إلى الخطوة الثانية
     document.getElementById('backToStep2')?.addEventListener('click', function(e) {
         e.preventDefault();
         if (step2Container && step3Container) {
@@ -283,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 11. منطق زر إرسال الطلب (محاكاة النجاح للفرونت إند)
+    // 12. منطق زر إرسال الطلب (محاكاة النجاح للفرونت إند)
     const questionsForm = document.getElementById('questionsForm');
     const successContainer = document.getElementById('successContainer');
 
@@ -307,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 12. تصفية وعرض القسم المختار فقط داخل صفحة departments.html بناءً على الـ Hash
+    // 13. تصفية وعرض القسم المختار داخل صفحة departments.html
     const deptCards = document.querySelectorAll('.departments-page-container .info-card');
     if (deptCards.length > 0) {
         function filterDepartments() {
@@ -330,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('hashchange', filterDepartments);
     }
 
-    // 14. تأثير العداد التصاعدي مع المحاكاة الحية اللانهائية (Live Infinite Simulation)
+    // 14. العدادات الحية المتصاعدة في قسم الأرقام
     const statsSection = document.querySelector('.stats-section');
     const statNumbers = document.querySelectorAll('.stat-number');
 
@@ -381,7 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(statsSection);
     }
 
-    // 15. معالجة التسجيل التفاعلي الشامل للفعاليات
+    // 15. التسجيل الفوري للفعاليات
     document.addEventListener('click', function(e) {
         if (e.target && e.target.classList.contains('btn-register')) {
             const button = e.target;
