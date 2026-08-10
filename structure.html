@@ -8,10 +8,40 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="register.css">
+    <link rel="icon" href="data:,">
+    <style>
+        .structure-header-bg { background-color: var(--dark-bg); }
+        .structure-container { width: 100%; max-width: 1200px; margin-top: 20px; padding: 0 20px; text-align: center; }
+        .structure-main-title { font-size: 2.5rem; margin-bottom: 10px; font-weight: 800; }
+        .structure-subtitle { margin-bottom: 20px; }
+        .structure-tree-wrapper { display: flex; flex-direction: column; align-items: center; gap: 30px; margin-top: 40px; }
+        .umbrella-badge { background: var(--dark-bg); color: white; padding: 22px 45px; border-radius: 18px; border: 2px solid var(--jungle-green); box-shadow: 0 8px 25px rgba(40, 181, 143, 0.15); }
+        .umbrella-tag { font-size: 0.8rem; color: var(--jungle-green); font-weight: 700; display: block; margin-bottom: 5px; letter-spacing: 1px; }
+        .umbrella-title { font-size: 1.25rem; font-weight: 800; font-family: var(--font-main); }
+        .connector-line-short { width: 2px; height: 25px; background: var(--jungle-green); }
+        .connector-line-medium { width: 2px; height: 35px; background: var(--jungle-green); }
+        .leader-card { background: white; padding: 25px 60px; border-radius: 20px; border: 1px solid rgba(40, 181, 143, 0.15); box-shadow: 0 4px 20px rgba(0,0,0,0.02); display: flex; gap: 50px; align-items: center; justify-content: center; flex-wrap: wrap; }
+        .leader-box { text-align: center; }
+        .leader-label { font-size: 0.85rem; color: var(--jungle-green); font-weight: 700; display: block; margin-bottom: 6px; }
+        .deputy-label { font-size: 0.85rem; color: #64748b; font-weight: 700; display: block; }
+        .leader-name { font-size: 1.3rem; font-weight: 800; color: var(--dark-bg); }
+        .divider-line { width: 1px; height: 45px; background: #e2e8f0; }
+        .sections-title { color: var(--dark-bg); font-weight: 800; font-size: 1.5rem; margin-top: 10px; }
+        .departments-grid-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; width: 100%; margin-top: 10px; padding-bottom: 40px; }
+        .dept-card-box { background: white; padding: 30px 20px; border-radius: 22px; border-top: 5px solid var(--jungle-green); box-shadow: 0 6px 20px rgba(0,0,0,0.03); text-align: right; }
+        .dept-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px; }
+        .dept-icon-circle { width: 40px; height: 40px; background: #e6f7f3; color: var(--jungle-green); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+        .dept-card-title { font-weight: 800; font-size: 1.15rem; color: var(--dark-bg); }
+        .dept-leader-row { margin-bottom: 12px; }
+        .dept-leader-tag { font-size: 0.8rem; color: var(--jungle-green); font-weight: 700; display: block; }
+        .dept-deputy-tag { font-size: 0.8rem; color: #64748b; font-weight: 700; display: block; }
+        .dept-person-name { font-weight: 700; color: var(--dark-bg); font-size: 1rem; margin-top: 2px; }
+        .dept-deputy-name { font-weight: 700; color: #334155; font-size: 0.95rem; margin-top: 2px; }
+    </style>
 </head>
 <body class="registration-page">
 
-    <header class="main-header" style="background-color: var(--dark-bg);">
+    <header class="main-header structure-header-bg">
         <div class="header-right-section">
             <div class="logo">
                 <img src="images/logo.png" alt="لوقو ارتواء">
@@ -23,127 +53,129 @@
                 <a href="index.html#departments-section">الأقسام</a>
             </nav>
         </div>
-        <button class="btn-login" onclick="window.location.href='login.html'">تسجيل الدخول</button>
+        <button class="btn-login" type="button" onclick="window.location.href='login.html'">تسجيل الدخول</button>
     </header>
 
-    <div class="container" style="width: 100%; max-width: 1200px; margin-top: 20px; padding: 0 20px; text-align: center;">
-        <h2 class="register-card__title" style="font-size: 2.5rem; margin-bottom: 10px; font-weight: 800;">الهيكل التنظيمي والإداري</h2>
-        <p class="register-card__subtitle" style="margin-bottom: 20px;">الترابط القيادي والتنفيذي لجميع لجان منصة ارتواء الرقمية</p>
+    <div class="container structure-container">
+        <h2 class="register-card__title structure-main-title">الهيكل التنظيمي والإداري</h2>
+        <p class="register-card__subtitle structure-subtitle">الترابط القيادي والتنفيذي لجميع لجان منصة ارتواء الرقمية</p>
 
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 30px; margin-top: 40px;">
+        <div class="structure-tree-wrapper">
             
-            <div style="background: var(--dark-bg); color: white; padding: 22px 45px; border-radius: 18px; border: 2px solid var(--jungle-green); box-shadow: 0 8px 25px rgba(40, 181, 143, 0.15);">
-                <span style="font-size: 0.8rem; color: var(--jungle-green); font-weight: 700; display: block; margin-bottom: 5px; letter-spacing: 1px;">المظلة العليا</span>
-                <h3 style="font-size: 1.25rem; font-weight: 800; font-family: var(--font-main);">معهد طاقات المعتمد للتدريب</h3>
+            <div class="umbrella-badge">
+                <span class="umbrella-tag">المظلة العليا</span>
+                <h3 class="umbrella-title">معهد طاقات المعتمد للتدريب</h3>
             </div>
 
-            <div style="width: 2px; height: 25px; background: var(--jungle-green);"></div>
+            <div class="connector-line-short"></div>
 
-            <div style="background: white; padding: 25px 60px; border-radius: 20px; border: 1px solid rgba(40, 181, 143, 0.15); box-shadow: 0 4px 20px rgba(0,0,0,0.02); display: flex; gap: 50px; align-items: center; justify-content: center; flex-wrap: wrap;">
-                <div style="text-align: center;">
-                    <span style="font-size: 0.85rem; color: var(--jungle-green); font-weight: 700; display: block; margin-bottom: 6px;"><i class="fa-solid fa-crown" style="margin-left: 5px;"></i>قائد المنصة</span>
-                    <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--dark-bg);">رواء المالكي</h3>
+            <!-- كارت قيادة المنصة -->
+            <div class="leader-card">
+                <div class="leader-box">
+                    <span class="leader-label"><i class="fa-solid fa-crown"></i> قائد المنصة</span>
+                    <h3 id="platform-leader-name" class="leader-name">رواء المالكي</h3>
                 </div>
-                <div style="width: 1px; height: 45px; background: #e2e8f0;"></div>
-                <div style="text-align: center;">
-                    <span style="font-size: 0.85rem; color: #64748b; font-weight: 700; display: block; margin-bottom: 6px;"><i class="fa-solid fa-user-shield" style="margin-left: 5px;"></i>نائب القائد</span>
-                    <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--dark-bg);">رياض المالكي</h3>
+                <div class="divider-line"></div>
+                <div class="leader-box">
+                    <span class="deputy-label"><i class="fa-solid fa-user-shield"></i> نائب القائد</span>
+                    <h3 id="platform-deputy-name" class="leader-name">رياض المالكي</h3>
                 </div>
             </div>
 
-            <div style="width: 2px; height: 35px; background: var(--jungle-green);"></div>
+            <div class="connector-line-medium"></div>
 
-            <h3 style="color: var(--dark-bg); font-weight: 800; font-size: 1.5rem; margin-top: 10px;">الأقسام واللجان التنفيذية</h3>
+            <h3 class="sections-title">الأقسام واللجان التنفيذية</h3>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; width: 100%; margin-top: 10px; padding-bottom: 40px;">
+            <!-- شبكة الأقسام ديناميكياً -->
+            <div id="departments-list" class="departments-grid-box">
                 
-                <div style="background: white; padding: 30px 20px; border-radius: 22px; border-top: 5px solid var(--jungle-green); box-shadow: 0 6px 20px rgba(0,0,0,0.03); text-align: right;">
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px;">
-                        <div style="width: 40px; height: 40px; background: #e6f7f3; color: var(--jungle-green); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;"><i class="fa-solid fa-code"></i></div>
-                        <h4 style="font-weight: 800; font-size: 1.15rem; color: var(--dark-bg);">القسم التقني</h4>
+                <div class="dept-card-box">
+                    <div class="dept-card-header">
+                        <div class="dept-icon-circle"><i class="fa-solid fa-code"></i></div>
+                        <h4 class="dept-card-title">القسم التقني</h4>
                     </div>
-                    <div style="margin-bottom: 12px;">
-                        <span style="font-size: 0.8rem; color: var(--jungle-green); font-weight: 700; display: block;">قائدة القسم</span>
-                        <p style="font-weight: 700; color: var(--dark-bg); font-size: 1rem; margin-top: 2px;">منار الغامدي</p>
+                    <div class="dept-leader-row">
+                        <span class="dept-leader-tag">قائدة القسم</span>
+                        <p class="dept-person-name">منار الغامدي</p>
                     </div>
                     <div>
-                        <span style="font-size: 0.8rem; color: #64748b; font-weight: 700; display: block;">نائب القسم</span>
-                        <p style="font-weight: 700; color: #334155; font-size: 0.95rem; margin-top: 2px;">سامي الزهراني</p>
+                        <span class="dept-deputy-tag">نائب القسم</span>
+                        <p class="dept-deputy-name">سامي الزهراني</p>
                     </div>
                 </div>
 
-                <div style="background: white; padding: 30px 20px; border-radius: 22px; border-top: 5px solid var(--jungle-green); box-shadow: 0 6px 20px rgba(0,0,0,0.03); text-align: right;">
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px;">
-                        <div style="width: 40px; height: 40px; background: #e6f7f3; color: var(--jungle-green); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;"><i class="fa-solid fa-palette"></i></div>
-                        <h4 style="font-weight: 800; font-size: 1.15rem; color: var(--dark-bg);">لجنة التصميم</h4>
+                <div class="dept-card-box">
+                    <div class="dept-card-header">
+                        <div class="dept-icon-circle"><i class="fa-solid fa-palette"></i></div>
+                        <h4 class="dept-card-title">لجنة التصميم</h4>
                     </div>
-                    <div style="margin-bottom: 12px;">
-                        <span style="font-size: 0.8rem; color: var(--jungle-green); font-weight: 700; display: block;">قائدة القسم</span>
-                        <p style="font-weight: 700; color: var(--dark-bg); font-size: 1rem; margin-top: 2px;">شهد بخاري</p>
+                    <div class="dept-leader-row">
+                        <span class="dept-leader-tag">قائدة القسم</span>
+                        <p class="dept-person-name">شهد بخاري</p>
                     </div>
                     <div>
-                        <span style="font-size: 0.8rem; color: #64748b; font-weight: 700; display: block;">نائبة القسم</span>
-                        <p style="font-weight: 700; color: #334155; font-size: 0.95rem; margin-top: 2px;">رغد</p>
+                        <span class="dept-deputy-tag">نائبة القسم</span>
+                        <p class="dept-deputy-name">رغد</p>
                     </div>
                 </div>
 
-                <div style="background: white; padding: 30px 20px; border-radius: 22px; border-top: 5px solid var(--jungle-green); box-shadow: 0 6px 20px rgba(0,0,0,0.03); text-align: right;">
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px;">
-                        <div style="width: 40px; height: 40px; background: #e6f7f3; color: var(--jungle-green); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;"><i class="fa-solid fa-calendar-days"></i></div>
-                        <h4 style="font-weight: 800; font-size: 1.15rem; color: var(--dark-bg);">الفعاليات والعلاقات</h4>
+                <div class="dept-card-box">
+                    <div class="dept-card-header">
+                        <div class="dept-icon-circle"><i class="fa-solid fa-calendar-days"></i></div>
+                        <h4 class="dept-card-title">الفعاليات والعلاقات</h4>
                     </div>
-                    <div style="margin-bottom: 12px;">
-                        <span style="font-size: 0.8rem; color: var(--jungle-green); font-weight: 700; display: block;">قائد القسم</span>
-                        <p style="font-weight: 700; color: var(--dark-bg); font-size: 1rem; margin-top: 2px;">يزيد المطرف</p>
+                    <div class="dept-leader-row">
+                        <span class="dept-leader-tag">قائد القسم</span>
+                        <p class="dept-person-name">يزيد المطرف</p>
                     </div>
                     <div>
-                        <span style="font-size: 0.8rem; color: #64748b; font-weight: 700; display: block;">نائبة القسم</span>
-                        <p style="font-weight: 700; color: #334155; font-size: 0.95rem; margin-top: 2px;">وسن السفياني</p>
+                        <span class="dept-deputy-tag">نائبة القسم</span>
+                        <p class="dept-deputy-name">وسن السفياني</p>
                     </div>
                 </div>
 
-                <div style="background: white; padding: 30px 20px; border-radius: 22px; border-top: 5px solid var(--jungle-green); box-shadow: 0 6px 20px rgba(0,0,0,0.03); text-align: right;">
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px;">
-                        <div style="width: 40px; height: 40px; background: #e6f7f3; color: var(--jungle-green); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;"><i class="fa-solid fa-chart-line"></i></div>
-                        <h4 style="font-weight: 800; font-size: 1.15rem; color: var(--dark-bg);">المتابعة والتطوير</h4>
+                <div class="dept-card-box">
+                    <div class="dept-card-header">
+                        <div class="dept-icon-circle"><i class="fa-solid fa-chart-line"></i></div>
+                        <h4 class="dept-card-title">المتابعة والتطوير</h4>
                     </div>
-                    <div style="margin-bottom: 12px;">
-                        <span style="font-size: 0.8rem; color: var(--jungle-green); font-weight: 700; display: block;">قائدة القسم</span>
-                        <p style="font-weight: 700; color: var(--dark-bg); font-size: 1rem; margin-top: 2px;">الجوري القصيّر</p>
+                    <div class="dept-leader-row">
+                        <span class="dept-leader-tag">قائدة القسم</span>
+                        <p class="dept-person-name">الجوري القصيّر</p>
                     </div>
                     <div>
-                        <span style="font-size: 0.8rem; color: #64748b; font-weight: 700; display: block;">نائب القسم</span>
-                        <p style="font-weight: 700; color: #334155; font-size: 0.95rem; margin-top: 2px;">عارف الشهري</p>
+                        <span class="dept-deputy-tag">نائب القسم</span>
+                        <p class="dept-deputy-name">عارف الشهري</p>
                     </div>
                 </div>
 
-                <div style="background: white; padding: 30px 20px; border-radius: 22px; border-top: 5px solid var(--jungle-green); box-shadow: 0 6px 20px rgba(0,0,0,0.03); text-align: right;">
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px;">
-                        <div style="width: 40px; height: 40px; background: #e6f7f3; color: var(--jungle-green); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;"><i class="fa-solid fa-camera-retro"></i></div>
-                        <h4 style="font-weight: 800; font-size: 1.15rem; color: var(--dark-bg);">اللجنة الإعلامية</h4>
+                <div class="dept-card-box">
+                    <div class="dept-card-header">
+                        <div class="dept-icon-circle"><i class="fa-solid fa-camera-retro"></i></div>
+                        <h4 class="dept-card-title">اللجنة الإعلامية</h4>
                     </div>
-                    <div style="margin-bottom: 12px;">
-                        <span style="font-size: 0.8rem; color: var(--jungle-green); font-weight: 700; display: block;">قائدة القسم</span>
-                        <p style="font-weight: 700; color: var(--dark-bg); font-size: 1rem; margin-top: 2px;">مجد عسيري</p>
+                    <div class="dept-leader-row">
+                        <span class="dept-leader-tag">قائدة القسم</span>
+                        <p class="dept-person-name">مجد عسيري</p>
                     </div>
                     <div>
-                        <span style="font-size: 0.8rem; color: #64748b; font-weight: 700; display: block;">نائب القسم</span>
-                        <p style="font-weight: 700; color: #334155; font-size: 0.95rem; margin-top: 2px;">طارق الحربي</p>
+                        <span class="dept-deputy-tag">نائب القسم</span>
+                        <p class="dept-deputy-name">طارق الحربي</p>
                     </div>
                 </div>
 
-                <div style="background: white; padding: 30px 20px; border-radius: 22px; border-top: 5px solid var(--jungle-green); box-shadow: 0 6px 20px rgba(0,0,0,0.03); text-align: right;">
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px;">
-                        <div style="width: 40px; height: 40px; background: #e6f7f3; color: var(--jungle-green); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;"><i class="fa-solid fa-pen-nib"></i></div>
-                        <h4 style="font-weight: 800; font-size: 1.15rem; color: var(--dark-bg);">صناعة المحتوى</h4>
+                <div class="dept-card-box">
+                    <div class="dept-card-header">
+                        <div class="dept-icon-circle"><i class="fa-solid fa-pen-nib"></i></div>
+                        <h4 class="dept-card-title">صناعة المحتوى</h4>
                     </div>
-                    <div style="margin-bottom: 12px;">
-                        <span style="font-size: 0.8rem; color: var(--jungle-green); font-weight: 700; display: block;">قائدة القسم</span>
-                        <p style="font-weight: 700; color: var(--dark-bg); font-size: 1rem; margin-top: 2px;">سما الوقداني</p>
+                    <div class="dept-leader-row">
+                        <span class="dept-leader-tag">قائدة القسم</span>
+                        <p class="dept-person-name">سما الوقداني</p>
                     </div>
                     <div>
-                        <span style="font-size: 0.8rem; color: #64748b; font-weight: 700; display: block;">نائبة القسم</span>
-                        <p style="font-weight: 700; color: #334155; font-size: 0.95rem; margin-top: 2px;">ليان الغامدي</p>
+                        <span class="dept-deputy-tag">نائبة القسم</span>
+                        <p class="dept-deputy-name">ليان الغامدي</p>
                     </div>
                 </div>
 
@@ -152,5 +184,75 @@
         </div>
     </div>
 
+    <script src="api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // 1. جلب وتحديث بيانات قائد المنصة ونائبه من السيرفر[cite: 1, 2]
+            try {
+                const leaderRes = await fetch('https://ertwa-backend.onrender.com/platform_leader');
+                if (leaderRes.ok) {
+                    const leaderData = await leaderRes.json();
+                    const leaderElem = document.getElementById('platform-leader-name');
+                    const deputyElem = document.getElementById('platform-deputy-name');
+                    if (leaderElem && leaderData.leader_name) leaderElem.textContent = leaderData.leader_name;
+                    if (deputyElem && leaderData.deputy_name) deputyElem.textContent = leaderData.deputy_name;
+                }
+            } catch (e) {
+                console.warn('تعذر جلب قائد المنصة ديناميكياً، تم استخدام البيانات المحلية.');
+            }
+
+            // 2. جلب وتحديث بيانات الأقسام من السيرفر دون مسح الكروت الثابتة[cite: 1, 2]
+            try {
+                const deptRes = await fetch('https://ertwa-backend.onrender.com/departments');
+                if (deptRes.ok) {
+                    const departments = await deptRes.json();
+                    
+                    if (Array.isArray(departments) && departments.length > 0) {
+                        departments.forEach(dept => {
+                            const deptTitles = document.querySelectorAll('#departments-list .dept-card-title');
+                            let updated = false;
+
+                            deptTitles.forEach(title => {
+                                if (title.textContent.trim() === dept.name?.trim()) {
+                                    const parentCard = title.closest('.dept-card-box');
+                                    if (parentCard) {
+                                        const leaderText = parentCard.querySelector('.dept-person-name');
+                                        const deputyText = parentCard.querySelector('.dept-deputy-name');
+                                        if (leaderText && dept.leader) leaderText.textContent = dept.leader;
+                                        if (deputyText && dept.deputy) deputyText.textContent = dept.deputy;
+                                        updated = true;
+                                    }
+                                }
+                            });
+
+                            if (!updated && dept.name) {
+                                const deptContainer = document.getElementById('departments-list');
+                                if (deptContainer) {
+                                    deptContainer.innerHTML += `
+                                        <div class="dept-card-box">
+                                            <div class="dept-card-header">
+                                                <div class="dept-icon-circle"><i class="fa-solid fa-sitemap"></i></div>
+                                                <h4 class="dept-card-title">${dept.name}</h4>
+                                            </div>
+                                            <div class="dept-leader-row">
+                                                <span class="dept-leader-tag">قائد القسم</span>
+                                                <p class="dept-person-name">${dept.leader || 'غير محدد'}</p>
+                                            </div>
+                                            <div>
+                                                <span class="dept-deputy-tag">نائب القسم</span>
+                                                <p class="dept-deputy-name">${dept.deputy || 'غير محدد'}</p>
+                                            </div>
+                                        </div>
+                                    `;
+                                }
+                            }
+                        });
+                    }
+                }
+            } catch (e) {
+                console.warn('تعذر جلب الأقسام ديناميكياً، تم الاعتماد على التنسيق الافتراضي.');
+            }
+        });
+    </script>
 </body>
 </html>
