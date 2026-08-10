@@ -1,20 +1,19 @@
 /* ======================================================== 
-   Register & Join Page Styles (Modular Approach)
+   Register & Join Page Styles (Ertwa Platform)
    ======================================================== */
 
 /* 1. حاوية الصفحة الرئيسية */
 .registration-page {
-    background-color: #eef9f6; /* اللون الفاتح المريح للعين في الفيجما */
+    background-color: #eef9f6;
     min-height: 100vh;
     padding: 120px 20px 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'Cairo', sans-serif; /* */
+    font-family: 'Cairo', sans-serif;
 }
 
 /* 2. شريط الخطوات (Stepper) */
-/* حاوية الشريحة العلوية */
 .stepper {
     display: flex;
     justify-content: center;
@@ -24,16 +23,14 @@
     direction: rtl;
 }
 
-/* نمط الخطوة الفردية */
 .step {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #94A3B8; /* لون رمادي للخطوات غير النشطة */
+    color: #94A3B8;
     font-weight: 600;
 }
 
-/* الدائرة الخاصة بالرقم */
 .step__number {
     width: 35px;
     height: 35px;
@@ -46,7 +43,6 @@
     transition: 0.3s;
 }
 
-/* الخط الواصل بين الخطوات */
 .step__line {
     width: 80px;
     height: 2px;
@@ -54,9 +50,8 @@
     transition: 0.3s;
 }
 
-/* الحالة النشطة (Active) */
 .step--active {
-    color: #28B58F; /* لون جنجل جرين المعتمد في المنصة */
+    color: #28B58F;
 }
 
 .step--active .step__number {
@@ -64,7 +59,6 @@
     color: white;
 }
 
-/* الحالة المكتملة (Completed) */
 .step--completed {
     color: #28B58F;
 }
@@ -90,8 +84,7 @@
 .register-card__title {
     font-family: 'Cairo', sans-serif;
     font-weight: 800; 
-    color: var(--dark-bg);
-    font-weight: 800;
+    color: var(--dark-bg, #25323B);
 }
 
 .register-card__subtitle {
@@ -109,7 +102,7 @@
 .form-group__label {
     display: block;
     font-weight: 700; 
-    color: var(--dark-bg);
+    color: var(--dark-bg, #25323B);
     margin-bottom: 8px;
     font-size: 0.95rem;
 }
@@ -119,32 +112,37 @@
 .form-group__textarea {
     width: 100%;
     padding: 15px 20px;
-    background-color: #f8fafc; /* خلفية الحقول الهادئة */
+    background-color: #f8fafc;
     border: 1px solid #e2e8f0;
     border-radius: 14px;
-    font-family: var(--font-main);
-    color: var(--dark-bg);
+    font-family: var(--font-main, 'Cairo', sans-serif);
+    color: var(--dark-bg, #25323B);
     transition: 0.3s;
 }
 
-.form-group__input:focus {
+.form-group__input:focus,
+.form-group__select:focus,
+.form-group__textarea:focus {
     outline: none;
-    border-color: var(--jungle-green);
+    border-color: var(--jungle-green, #28B58F);
     background-color: white;
     box-shadow: 0 0 0 4px rgba(40, 181, 143, 0.05);
 }
 
-/* توزيع الحقول (المدينة والعمر) */
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
+#otherSpecializationGroup {
+    animation: fadeIn 0.4s ease;
+}
+
 /* 5. الأزرار */
 .btn-submit {
     width: 100%;
-    background-color: var(--jungle-green);
+    background-color: var(--jungle-green, #28B58F);
     color: white;
     padding: 18px;
     border: none;
@@ -168,7 +166,7 @@
 
 .btn-secondary {
     width: 100%;
-    background-color: var(--dark-bg);
+    background-color: var(--dark-bg, #25323B);
     color: white;
     padding: 18px;
     border: none;
@@ -183,7 +181,28 @@
 .btn-secondary:hover {
     opacity: 0.9;
 }
-/* تنسيق شبكة اللجان */
+
+.btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.btn-home {
+    background: #25323B;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+}
+
+/* 6. شبكة اللجان (Committees Grid) */
 .committees-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -191,7 +210,6 @@
     padding: 20px;
 }
 
-/* تنسيق البطاقة الفردية */
 .committee-card {
     background: #FFFFFF;
     border: 1px solid #F1F5F9;
@@ -202,16 +220,16 @@
     cursor: pointer;
 }
 
-.committee-card:hover, .committee-card.selected {
+.committee-card:hover, 
+.committee-card.selected {
     border-color: #28B58F;
     box-shadow: 0px 10px 25px rgba(40, 181, 143, 0.1);
 }
 
-/* صندوق الأيقونة */
 .committee-card__icon {
     width: 70px;
     height: 70px;
-    background: #F0FAF8; /* لون فاتح جداً خلف الأيقونة */
+    background: #F0FAF8;
     border-radius: 18px;
     display: flex;
     justify-content: center;
@@ -238,7 +256,6 @@
     margin-bottom: 25px;
 }
 
-/* زر اختيار اللجنة */
 .btn-select-committee {
     background: transparent;
     border: 1px solid #E2E8F0;
@@ -256,23 +273,14 @@
     border-color: #28B58F;
 }
 
-/* رابط العودة */
+/* 7. الروابط التفاعلية */
 .back-link {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     direction: rtl;
     color: #94A3B8;
-    transition: 0.3s;
-}
-
-.back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    direction: rtl;
-    color: #94A3B8;
-    text-decoration: none; /* هذا السطر يزيل الخط تماماً */
+    text-decoration: none;
     font-size: 0.9rem;
     transition: 0.3s;
     cursor: pointer;
@@ -283,19 +291,8 @@
     text-decoration: none; 
     transform: translateX(5px);
 }
-.register-card {
-        padding: 30px 20px;
-    }
-    
-    .step__label {
-        display: none; /* إخفاء النص في الجوال والاكتفاء بالأرقام */
-    }
 
-/* تأثير ظهور هادئ للحقل المخفي */
-#otherSpecializationGroup {
-    animation: fadeIn 0.4s ease;
-}
-/* حاوية الأسئلة */
+/* 8. قسم الأسئلة المتغيرة */
 .questions-card {
     background: white;
     padding: 40px;
@@ -334,7 +331,6 @@
     color: #25323B;
 }
 
-/* تنسيق الخيارات (Radio Buttons) */
 .options-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -356,7 +352,6 @@
     height: 18px;
 }
 
-/* الحقول النصية */
 .input-field-q {
     width: calc(100% - 47px);
     margin-right: 47px;
@@ -364,7 +359,7 @@
     border: 1px solid #E2E8F0;
     border-radius: 12px;
     padding: 12px 20px;
-    font-family: 'Cairo';
+    font-family: 'Cairo', sans-serif;
     outline: none;
     transition: 0.3s;
 }
@@ -374,32 +369,13 @@
     box-shadow: 0 0 0 3px rgba(40, 181, 143, 0.1);
 }
 
-.btn-group {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    align-items: center;
-    margin-top: 40px;
-}
-
-.btn-home {
-    background: #25323B;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    width: 100%;
-    max-width: 300px;
-}
+/* 9. الحركات (Animations) */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-
-/* استجابة الشاشات الصغيرة */
+/* 10. التجاوب مع الشاشات (Responsive Design) */
 @media (max-width: 992px) {
     .committees-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -407,7 +383,25 @@
 }
 
 @media (max-width: 600px) {
+    .register-card {
+        padding: 30px 20px;
+    }
+
+    .step__label {
+        display: none;
+    }
+
     .committees-grid {
         grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .input-field-q,
+    .options-grid {
+        width: 100%;
+        margin-right: 0;
     }
 }
