@@ -1,98 +1,131 @@
-// admin.js - ملف متكامل لإدارة الفعاليات (إضافة - عرض - حذف)
-
-window.onload = function() {
+document.addEventListener('DOMContentLoaded', function() {
+    const role = localStorage.getItem('userRole');
     const token = localStorage.getItem('userToken');
-    if (!token) {
-        alert('غير مصرح لك بدخول هذه الصفحة، يرجى تسجيل الدخول أولاً.');
-        window.location.href = 'login.html'; 
-        return;
+
+    // تشغيل وظائف الأدمن فقط إذا كان الحساب Admin
+    if (role === 'admin') {
+        loadAdminEvents();
+        loadRegistrationsCount();
+        loadServiceRequests(token); // إضافة جلب طلبات الخدمات
+        setupAddEventForm(token);
     }
-    // عند تحميل الصفحة، نجلب الفعاليات فوراً لعرضها في الجدول
-    loadAdminEvents();
-};
+});
 
-// 1. منطق إضافة فعالية جديدة
-const addEventForm = document.getElementById('add-event-form');
-if (addEventForm) {
-    addEventForm.addEventListener('submit', async (e) => {
-        e.preventDefault(); 
+// 1. جلب وعرض الفعاليات الحالية في جدول الأدمن مع زر الحذف
+async function loadAdminEvents() {
+    const tableBody = document.getElementById('admin-events-list');
+    if (!tableBody) return;
 
-        const eventData = {
-            title: document.getElementById('event-title') ? document.getElementById('event-title').value : "",
-            description: document.getElementById('event-desc') ? document.getElementById('event-desc').value : "",
-            date: document.getElementById('event-date') ? document.getElementById('event-date').value : "",
-            time: document.getElementById('event-time') ? document.getElementById('event-time').value : "",
-            location: document.getElementById('event-loc') ? document.getElementById('event-loc').value : "",
-            image: document.getElementById('event-img') ? document.getElementById('event-img').value : ""
-        };
+    try {
+        const res = await fetch('https://ertwa-backend.onrender.com/events');
+        const events = await res.json();
 
-        // استدعاء دالة الإضافة المحدثة من ملف api.js
-        await addNewEvent(eventData); 
-        await loadAdminEvents(); // تحديث الجدول فورياً بعد الإضافة
+        tableBody.innerHTML = '';
+        if (Array.isArray(events) && events.length > 0) {
+            events.forEach(ev => {
+                tableBody.innerHTML += `
+                    <tr>
+                        <td><strong>${ev.title}</strong></td>
+                        <td style="text-align: left;">
+                            <button onclick="deleteEvent(${ev.id})" style="background:#e11d48; color:white; border:none; padding:5px 12px; border-radius:6px; cursor:pointer;">حذف</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        } else {
+            tableBody.innerHTML = '<tr><td colspan="2">لا توجد فعاليات مضافة حالياً.</td></tr>';
+        }
+    } catch (err) {
+        console.error('خطأ في جلب الفعاليات:', err);
+    }
+}
+
+// 2. إرسال فعالية جديدة للسيرفر
+function setupAddEventForm(token) {
+    const form = document.getElementById('add-event-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const title = document.getElementById('event-title').value;
+        const desc = document.getElementById('event-desc').value;
+        const date = document.getElementById('event-date').value;
+        const time = document.getElementById('event-time').value;
+        const loc = document.getElementById('event-loc').value;
+
+        const url = `https://ertwa-backend.onrender.com/events?title=${encodeURIComponent(title)}&description=${encodeURIComponent(desc)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&location=${encodeURIComponent(loc)}&image=default.png&token=${token}`;
+
+        try {
+            const res = await fetch(url, { method: 'POST' });
+            if (res.ok) {
+                alert('تمت إضافة الفعالية بنجاح! 🎉');
+                form.reset();
+                loadAdminEvents(); // إعادة تحديث الجدول
+            } else {
+                alert('حدث خطأ أثناء إضافة الفعالية.');
+            }
+        } catch (err) {
+            alert('تعذر الاتصال بالسيرفر.');
+        }
     });
 }
 
-// 2. دالة جلب الفعاليات وعرضها في الجدول
-async function loadAdminEvents() {
-    try {
-        const response = await fetch('https://ertwa-backend.onrender.com/events');
-        const list = document.getElementById('admin-events-list');
-        
-        if (!list) return; // للتأكد أننا في الصفحة الصحيحة
-        
-        if (!response.ok) {
-            list.innerHTML = '<tr><td colspan="2" style="padding: 15px; text-align: center; color: #ef4444;">تعذر جلب الفعاليات من السيرفر.</td></tr>';
-            return;
-        }
-
-        const events = await response.json();
-        list.innerHTML = "";
-        
-        if (!Array.isArray(events) || events.length === 0) {
-            list.innerHTML = '<tr><td colspan="2" style="padding: 15px; text-align: center; color: #64748b;">لا توجد فعاليات مضافة حالياً.</td></tr>';
-            return;
-        }
-        
-        events.forEach(ev => {
-            list.innerHTML += `
-                <tr style="border-bottom: 1px solid #f1f5f9;">
-                    <td style="padding: 15px;">${ev.title}</td>
-                    <td style="padding: 15px; text-align: left;">
-                        <button onclick="deleteEvent(${ev.id})" style="background:#ef4444; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; margin-left: 5px;">حذف</button>
-                        <button onclick="editEvent(${ev.id})" style="background:#3b82f6; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer;">تعديل</button>
-                    </td>
-                </tr>`;
-        });
-    } catch (error) {
-        console.error("خطأ في جلب الفعاليات:", error);
-    }
-}
-
-// 3. دالة حذف فعالية
+// 3. حذف فعالية من السيرفر
 async function deleteEvent(eventId) {
-    if (confirm("هل أنت متأكد من حذف هذه الفعالية؟")) {
-        const token = localStorage.getItem('userToken');
-        try {
-            const response = await fetch(`https://ertwa-backend.onrender.com/events/${eventId}?token=${token}`, {
-                method: 'DELETE',
-                headers: { 'accept': 'application/json' }
-            });
-            
-            if (response.ok) {
-                alert("تم الحذف بنجاح");
-                loadAdminEvents(); // تحديث الجدول فوراً
-            } else {
-                const data = await response.json().catch(() => ({}));
-                alert(`فشل الحذف: ${data.message || 'تأكد من الصلاحيات والتوكن'}`);
-            }
-        } catch (error) {
-            console.error("خطأ أثناء الحذف:", error);
-            alert("حدث خطأ أثناء الاتصال بالسيرفر.");
+    const token = localStorage.getItem('userToken');
+    if (!confirm('هل أنت متاكد من حذف هذه الفعالية؟')) return;
+
+    try {
+        const res = await fetch(`https://ertwa-backend.onrender.com/events/${eventId}?token=${token}`, { method: 'DELETE' });
+        if (res.ok) {
+            alert('تم حذف الفعالية بنجاح.');
+            loadAdminEvents();
+        } else {
+            alert('فشل الحذف: قد تتطلب هذه العملية صلاحيات إضافية من السيرفر.');
         }
+    } catch (err) {
+        console.error('خطأ أثناء الحذف:', err);
     }
 }
 
-// 4. دالة تعديل (مبدئية)
-function editEvent(eventId) {
-    alert("جارِ فتح نموذج التعديل للفعالية رقم: " + eventId);
+// 4. جلب عرض قائمة وعدد المسجلين
+async function loadRegistrationsCount() {
+    try {
+        const res = await fetch('https://ertwa-backend.onrender.com/registrations');
+        const data = await res.json();
+        if (Array.isArray(data)) {
+            console.log(`إجمالي المسجلين في المنصة: ${data.length}`, data);
+        }
+    } catch (err) {
+        console.warn('تعذر جلب قائمة المسجلين حالياً.');
+    }
+}
+
+// 5. جلب وعرض طلبات الخدمات القادمة من البوابة الرقمية
+async function loadServiceRequests(token) {
+    const requestsTable = document.getElementById('admin-requests-list');
+    if (!requestsTable) return;
+
+    try {
+        const res = await fetch(`https://ertwa-backend.onrender.com/service_requests?token=${token}`);
+        const requests = await res.json();
+
+        if (res.ok && Array.isArray(requests) && requests.length > 0) {
+            requestsTable.innerHTML = '';
+            requests.forEach(req => {
+                requestsTable.innerHTML += `
+                    <tr>
+                        <td><strong>${req.client_name}</strong></td>
+                        <td>${req.email}</td>
+                        <td>${req.service_type}</td>
+                        <td>${req.description}</td>
+                        <td>${req.budget} ريال / ${req.timeline}</td>
+                    </tr>
+                `;
+            });
+        }
+    } catch (err) {
+        console.warn('تعذر جلب طلبات الخدمات حالياً.');
+    }
 }
