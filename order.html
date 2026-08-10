@@ -73,6 +73,31 @@
 
         </form>
     </div>
+    <script src="api.js"></script>
+<script>
+    document.getElementById('digitalServiceForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // جلب القيم من الحقول
+        const clientName = document.querySelector('input[placeholder*="الاسم الكامل"]').value;
+        const email = document.querySelector('input[type="email"]').value;
+        const serviceType = document.querySelector('select').value;
+        const description = document.querySelector('textarea').value;
+        const budget = document.querySelectorAll('input[type="number"]')[0].value;
+        const timeline = document.querySelectorAll('input[type="text"]')[1].value;
+
+        // إرسال البيانات للباك إند
+        const result = await submitServiceRequestAPI(clientName, email, serviceType, description, budget, timeline);
+        
+        if (result.ok) {
+            document.getElementById('formFields').style.display = 'none';
+            document.getElementById('orderSuccess').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            alert("حدث خطأ أثناء إرسال الطلب، يرجى المحاولة لاحقاً.");
+        }
+    });
+</script>
 
 </body>
 </html>
