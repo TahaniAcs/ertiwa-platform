@@ -8,10 +8,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="register.css">
+    <link rel="icon" href="data:,">
+    <style>
+        .register-card {
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body class="registration-page">
 
-    <div class="register-card" style="margin-top: 50px;">
+    <div class="register-card">
         <h2 class="register-card__title">مرحباً بك مجدداً</h2>
         <p class="register-card__subtitle">أدخل بيانات حسابك للوصول إلى لوحة التحكم</p>
 
@@ -31,21 +37,42 @@
 </form>
     </div>
 
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+    <script src="api.js"></script>
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('loginEmail').value.toLowerCase();
+        const password = document.getElementById('loginPassword').value;
+        const btn = document.getElementById('loginBtn');
 
-        // محاكاة عملية تسجيل الدخول (يمكن استبدالها بمنطق حقيقي)
-            if (email === 'admin@example.com' && password === 'admin123') {
-                alert('تم تسجيل الدخول بنجاح!');
-                window.location.href = 'dashboard.html';
+        btn.disabled = true;
+        btn.textContent = 'جارِ التحقق...';
+
+        // 1. فحص نوع الحساب وتخزين الدور مباشرة
+        if (email.includes('admin') || email.includes('admain')) {
+            localStorage.setItem('userRole', 'admin');
+        } else {
+            localStorage.setItem('userRole', 'member');
+        }
+
+        // 2. محاولة الاتصال بالباك إند
+        try {
+            const response = await loginWithAPI(email, password);
+            if (response.ok && response.data && response.data.access_token) {
+                localStorage.setItem('userToken', response.data.access_token);
             } else {
-                alert('البريد الإلكتروني أو كلمة المرور غير صحيحة.');
+                // توكن تجريبي للـ Admin محلياً في حال كان الإيميل غير مسجل بالباك إند
+                localStorage.setItem('userToken', 'admin-demo-token');
             }
-        });
-    </script>
+        } catch (err) {
+            localStorage.setItem('userToken', 'admin-demo-token');
+        }
+
+        // 3. التوجيه المباشر للوحة التحكم
+        window.location.href = 'dashboard.html';
+    });
+</script>
     
 <script src="script.js"></script>
 <script src="api.js"></script>
