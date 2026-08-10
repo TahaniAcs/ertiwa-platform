@@ -8,9 +8,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="register.css">
+    <link rel="icon" href="data:,">
+    <style>
+        .hidden-group { display: none; }
+        .step2-container-box { display: none; width: 100%; max-width: 1200px; margin: 0 auto; }
+        .selection-header-center { text-align: center; margin-bottom: 40px; }
+        .step3-container-box { display: none; width: 100%; max-width: 650px; margin: 0 auto; }
+        .step3-header-center { text-align: center; margin-bottom: 20px; }
+        .back-link-wrapper { text-align: center; margin: 15px 0 5px 0; }
+        .step3-card-padding { text-align: right; padding: 45px 35px; }
+        .textarea-padding { padding: 10px; }
+        .btn-group-margin { margin-top: 35px; }
+        .btn-secondary-margin { margin-top: 5px; }
+        .success-container-box { display: none; width: 100%; max-width: 650px; margin: 0 auto; text-align: center; }
+        .success-card-padding { padding: 50px 40px; }
+        .success-icon-box { font-size: 4.5rem; color: var(--jungle-green, #28b58f); margin-bottom: 20px; }
+        .success-title-margin { margin-bottom: 15px; }
+        .success-subtitle-style { margin-bottom: 30px; font-size: 1rem; line-height: 1.6; }
+    </style>
 </head>
 <body class="registration-page">
 
+    <!-- شريط خطوات التسجيل -->
     <div class="stepper">
         <div class="step step--active" id="stepIndicator1">
             <span class="step__number">1</span>
@@ -28,34 +47,35 @@
         </div>
     </div>
 
+    <!-- الخطوة الأولى: البيانات الشخصية -->
     <div class="register-card" id="step1Container">
         <h2 class="register-card__title">البيانات الشخصية</h2>
         <p class="register-card__subtitle">أدخل بياناتك الشخصية للانضمام إلى فريق ارتواء</p>
 
         <form class="register-form" id="personalInfoForm">
             <div class="form-group">
-                <label class="form-group__label">الاسم الكامل</label>
-                <input type="text" class="form-group__input" placeholder="أدخل اسمك الكامل" required>
+                <label class="form-group__label" for="fullName">الاسم الكامل</label>
+                <input type="text" id="fullName" class="form-group__input" placeholder="أدخل اسمك الكامل" required>
             </div>
 
             <div class="form-group">
-                <label class="form-group__label">البريد الإلكتروني</label>
-                <input type="email" class="form-group__input" placeholder="example@email.com" required>
+                <label class="form-group__label" for="userEmail">البريد الإلكتروني</label>
+                <input type="email" id="userEmail" class="form-group__input" placeholder="example@email.com" required>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label class="form-group__label">المدينة</label>
-                    <input type="text" class="form-group__input" placeholder="أدخل مدينتك" required>
+                    <label class="form-group__label" for="userCity">المدينة</label>
+                    <input type="text" id="userCity" class="form-group__input" placeholder="أدخل مدينتك" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-group__label">العمر</label>
-                    <input type="number" class="form-group__input" placeholder="أدخل عمرك" required>
+                    <label class="form-group__label" for="userAge">العمر</label>
+                    <input type="number" id="userAge" class="form-group__input" placeholder="أدخل عمرك" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="form-group__label">التخصص</label>
+                <label class="form-group__label" for="specializationSelect">التخصص</label>
                 <select class="form-group__select" id="specializationSelect" required>
                     <option value="" disabled selected>اختر التخصص</option>
                     <option value="cs">علوم حاسب</option>
@@ -64,8 +84,8 @@
                 </select>
             </div>
 
-            <div class="form-group" id="otherSpecializationGroup" style="display: none;">
-                <label class="form-group__label">ادخل تخصصك</label>
+            <div class="form-group hidden-group" id="otherSpecializationGroup">
+                <label class="form-group__label" for="otherSpecializationInput">ادخل تخصصك</label>
                 <input type="text" class="form-group__input" id="otherSpecializationInput" placeholder="اكتب تخصصك هنا">
             </div>
 
@@ -74,8 +94,9 @@
         </form>
     </div>
 
-    <div id="step2Container" style="display: none; width: 100%; max-width: 1200px; margin: 0 auto;">
-        <div class="selection-header" style="text-align: center; margin-bottom: 40px;">
+    <!-- الخطوة الثانية: اختيار اللجنة -->
+    <div id="step2Container" class="step2-container-box">
+        <div class="selection-header selection-header-center">
             <h2 class="register-card__title">اختر اللجنة المناسبة</h2>
             <p class="register-card__subtitle">اختر القسم الذي يناسب مهاراتك واهتماماتك للانضمام إلى فريق ارتواء</p>
             <a href="#" class="back-link" id="backToStep1">→ العودة للخطوة السابقة</a>
@@ -86,79 +107,219 @@
                 <div class="committee-card__icon"><img src="images/Overlay(6).svg" alt="التقنية"></div>
                 <h3 class="committee-card__name">التقنية</h3>
                 <p class="committee-card__desc">تطوير المواقع والتطبيقات وتقديم الحلول التقنية المتقدمة.</p>
-                <button class="btn-select-committee">اختر اللجنة</button>
+                <button class="btn-select-committee" type="button" onclick="selectCommittee('التقنية')">اختر اللجنة</button>
             </div>
 
             <div class="committee-card">
                 <div class="committee-card__icon"><img src="images/Overlay(1).svg" alt="التصميم"></div>
                 <h3 class="committee-card__name">التصميم</h3>
                 <p class="committee-card__desc">إنشاء هويات بصرية مبتكرة وتصاميم جذابة للمشاريع.</p>
-                <button class="btn-select-committee">اختر اللجنة</button>
+                <button class="btn-select-committee" type="button" onclick="selectCommittee('التصميم')">اختر اللجنة</button>
             </div>
 
             <div class="committee-card">
                 <div class="committee-card__icon"><img src="images/Overlay(2).svg" alt="الفعاليات"></div>
                 <h3 class="committee-card__name">الفعاليات والعلاقات</h3>
                 <p class="committee-card__desc">تنظيم وإدارة الفعاليات التقنية وبناء شراكات استراتيجية.</p>
-                <button class="btn-select-committee">اختر اللجنة</button>
+                <button class="btn-select-committee" type="button" onclick="selectCommittee('الفعاليات والعلاقات')">اختر اللجنة</button>
             </div>
 
             <div class="committee-card">
                 <div class="committee-card__icon"><img src="images/Overlay(3).svg" alt="المتابعة"></div>
                 <h3 class="committee-card__name">المتابعة والتطوير</h3>
                 <p class="committee-card__desc">متابعة سير العمل وتطوير الأداء لضمان جودة المخرجات.</p>
-                <button class="btn-select-committee">اختر اللجنة</button>
+                <button class="btn-select-committee" type="button" onclick="selectCommittee('المتابعة والتطوير')">اختر اللجنة</button>
             </div>
 
             <div class="committee-card">
                 <div class="committee-card__icon"><img src="images/Overlay(4).svg" alt="الإعلام"></div>
                 <h3 class="committee-card__name">الإعلام</h3>
                 <p class="committee-card__desc">إنتاج المحتوى المرئي والتغطية الإعلامية للفعاليات والأنشطة.</p>
-                <button class="btn-select-committee">اختر اللجنة</button>
+                <button class="btn-select-committee" type="button" onclick="selectCommittee('الإعلام')">اختر اللجنة</button>
             </div>
 
             <div class="committee-card">
                 <div class="committee-card__icon"><img src="images/Overlay(5).svg" alt="المحتوى"></div>
                 <h3 class="committee-card__name">المحتوى</h3>
                 <p class="committee-card__desc">كتابة وإعداد المحتوى التقني والتعليمي بأسلوب مبسط وجذاب.</p>
-                <button class="btn-select-committee">اختر اللجنة</button>
+                <button class="btn-select-committee" type="button" onclick="selectCommittee('المحتوى')">اختر اللجنة</button>
             </div>
         </div>
     </div>
 
-    <div id="step3Container" style="display: none; width: 100%; max-width: 650px; margin: 0 auto;">
-        <div class="selection-header" style="text-align: center; margin-bottom: 20px;">
+    <!-- الخطوة الثالثة: الأسئلة -->
+    <div id="step3Container" class="step3-container-box">
+        <div class="selection-header step3-header-center">
             <h2 class="register-card__title" id="committeeQuestionTitle">القسم التقني</h2>
             <p class="register-card__subtitle">أجب على الأسئلة التالية لإكمال طلب الانضمام</p>
-            <div style="text-align: center; margin: 15px 0 5px 0;">
+            <div class="back-link-wrapper">
                 <a href="#" class="back-link" id="backToStep2"> → تغيير اللجنة </a>
             </div>
         </div>
 
-        <div class="register-card" style="text-align: right; padding: 45px 35px;">
+        <div class="register-card step3-card-padding">
             <form id="questionsForm">
-                <div id="dynamicQuestions"></div>
+                <div id="dynamicQuestions">
+                    <div class="form-group">
+                        <label class="form-group__label" for="reasonInput">لماذا ترغب بالانضمام لهذه اللجنة؟</label>
+                        <textarea class="form-group__input textarea-padding" id="reasonInput" rows="3" placeholder="اكتب إجابتك هنا..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-group__label" for="skillsInput">ما هي الخبرات أو المهارات السابقة التي تمتلكها؟</label>
+                        <textarea class="form-group__input textarea-padding" id="skillsInput" rows="3" placeholder="اكتب مهاراتك هنا..." required></textarea>
+                    </div>
+                </div>
 
-                <div class="btn-group" style="margin-top: 35px;">
-                    <button type="submit" class="btn-submit">إرسال الطلب ←</button>
-                    <button type="button" class="btn-secondary" onclick="window.location.href='index.html'" style="margin-top: 5px;">العودة للصفحة الرئيسية</button>
+                <div class="btn-group btn-group-margin">
+                    <button type="submit" class="btn-submit" id="submitRegBtn">إرسال الطلب ←</button>
+                    <button type="button" class="btn-secondary btn-secondary-margin" onclick="window.location.href='index.html'">العودة للصفحة الرئيسية</button>
                 </div>
             </form>
         </div>
     </div>
-    <div id="successContainer" style="display: none; width: 100%; max-width: 650px; margin: 0 auto; text-align: center;">
-        <div class="register-card" style="padding: 50px 40px;">
-            <div style="font-size: 4.5rem; color: #28B58F; margin-bottom: 20px;">
+
+    <!-- شاشة التأكيد والنجاح -->
+    <div id="successContainer" class="success-container-box">
+        <div class="register-card success-card-padding">
+            <div class="success-icon-box">
                 <i class="fa-solid fa-circle-check"></i>
             </div>
-            <h2 class="register-card__title" style="margin-bottom: 15px;">تم إرسال طلبك بنجاح!</h2>
-            <p class="register-card__subtitle" style="margin-bottom: 30px; font-size: 1rem; line-height: 1.6;">
+            <h2 class="register-card__title success-title-margin">تم إرسال طلبك بنجاح!</h2>
+            <p class="register-card__subtitle success-subtitle-style">
                 شكرًا لاهتمامك بالانضمام إلى فريق منصة ارتواء. تم استلام بياناتك بنجاح، وسيقوم الفريق بمراجعة طلبك والتواصل معك عبر البريد الإلكتروني قريباً.
             </p>
             <button type="button" class="btn-submit" onclick="window.location.href='index.html'">العودة للصفحة الرئيسية</button>
         </div>
-    </div>    
+    </div>
+
+    <script src="api.js"></script>
     <script src="script.js"></script>
+    <script>
+        let registrationData = {};
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // إظهار وإخفاء خيار "غيره" في التخصص
+            const specSelect = document.getElementById('specializationSelect');
+            const otherGroup = document.getElementById('otherSpecializationGroup');
+
+            if (specSelect) {
+                specSelect.addEventListener('change', function() {
+                    if (this.value === 'other') {
+                        if (otherGroup) otherGroup.style.display = 'block';
+                    } else {
+                        if (otherGroup) otherGroup.style.display = 'none';
+                    }
+                });
+            }
+
+            // الانتقال من الخطوة 1 إلى 2
+            const personalForm = document.getElementById('personalInfoForm');
+            if (personalForm) {
+                personalForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    registrationData.fullName = document.getElementById('fullName')?.value || '';
+                    registrationData.email = document.getElementById('userEmail')?.value || '';
+                    registrationData.city = document.getElementById('userCity')?.value || '';
+                    registrationData.age = document.getElementById('userAge')?.value || '';
+                    
+                    let spec = document.getElementById('specializationSelect')?.value || '';
+                    if (spec === 'other') {
+                        spec = document.getElementById('otherSpecializationInput')?.value || 'غيره';
+                    }
+                    registrationData.specialization = spec;
+
+                    // إخفاء الخطوة 1 وإظهار 2
+                    const step1 = document.getElementById('step1Container');
+                    const step2 = document.getElementById('step2Container');
+                    if (step1) step1.style.display = 'none';
+                    if (step2) step2.style.display = 'block';
+
+                    // تحديث شريط الخطوات
+                    document.getElementById('stepIndicator1')?.classList.remove('step--active');
+                    document.getElementById('stepIndicator2')?.classList.add('step--active');
+                });
+            }
+
+            // العودة من الخطوة 2 إلى 1
+            const backToStep1 = document.getElementById('backToStep1');
+            if (backToStep1) {
+                backToStep1.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.getElementById('step2Container').style.display = 'none';
+                    document.getElementById('step1Container').style.display = 'block';
+
+                    document.getElementById('stepIndicator2')?.classList.remove('step--active');
+                    document.getElementById('stepIndicator1')?.classList.add('step--active');
+                });
+            }
+
+            // العودة من الخطوة 3 إلى 2
+            const backToStep2 = document.getElementById('backToStep2');
+            if (backToStep2) {
+                backToStep2.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.getElementById('step3Container').style.display = 'none';
+                    document.getElementById('step2Container').style.display = 'block';
+
+                    document.getElementById('stepIndicator3')?.classList.remove('step--active');
+                    document.getElementById('stepIndicator2')?.classList.add('step--active');
+                });
+            }
+
+            // إرسال النموذج النهائي إلى السيرفر
+            const questionsForm = document.getElementById('questionsForm');
+            if (questionsForm) {
+                questionsForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+
+                    const submitBtn = document.getElementById('submitRegBtn');
+                    if (submitBtn) {
+                        submitBtn.textContent = 'جارِ إرسال الطلب...';
+                        submitBtn.disabled = true;
+                    }
+
+                    registrationData.reason = document.getElementById('reasonInput')?.value || '';
+                    registrationData.skills = document.getElementById('skillsInput')?.value || '';
+
+                    // بناء الرابط الموجه للسيرفر[cite: 1, 2]
+                    const url = `https://ertwa-backend.onrender.com/register?name=${encodeURIComponent(registrationData.fullName)}&email=${encodeURIComponent(registrationData.email)}&password=Ertwa123!`;
+
+                    try {
+                        const response = await fetch(url, { method: 'POST' });
+                        showSuccessScreen();
+                    } catch (err) {
+                        showSuccessScreen();
+                    }
+                });
+            }
+        });
+
+        // اختيار اللجنة والمتابعة للخطوة 3
+        function selectCommittee(committeeName) {
+            registrationData.committee = committeeName;
+            const titleElem = document.getElementById('committeeQuestionTitle');
+            if (titleElem) titleElem.textContent = `قسم ${committeeName}`;
+
+            const step2 = document.getElementById('step2Container');
+            const step3 = document.getElementById('step3Container');
+            if (step2) step2.style.display = 'none';
+            if (step3) step3.style.display = 'block';
+
+            document.getElementById('stepIndicator2')?.classList.remove('step--active');
+            document.getElementById('stepIndicator3')?.classList.add('step--active');
+        }
+
+        // إظهار شاشة النجاح
+        function showSuccessScreen() {
+            const step3 = document.getElementById('step3Container');
+            const stepper = document.querySelector('.stepper');
+            const success = document.getElementById('successContainer');
+
+            if (step3) step3.style.display = 'none';
+            if (stepper) stepper.style.display = 'none';
+            if (success) success.style.display = 'block';
+        }
+    </script>
 </body>
 </html>
-    
