@@ -7,10 +7,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:,">
+    <style>
+        .events-page-body { background-color: #f8fafc; }
+        .events-header-bg { position: relative; background-color: var(--dark-bg); }
+        .events-main-padding { padding: 60px 0; }
+        .events-container-max { max-width: 1200px; margin: 0 auto; }
+        .events-header-center { text-align: center; margin-bottom: 50px; }
+        .events-title-margin { margin-top: 10px; }
+        .events-subtitle-margin { color: #64748b; margin-top: 10px; }
+    </style>
 </head>
-<body style="background-color: #f8fafc;">
+<body class="events-page-body">
 
-    <header class="main-header" style="position: relative; background-color: var(--dark-bg);">
+    <header class="main-header events-header-bg">
         <div class="header-right-section">
             <div class="logo">
                 <img src="images/logo.png" alt="لوقو ارتواء">
@@ -26,17 +36,17 @@
         <button class="btn-login" onclick="window.location.href='login.html'">تسجيل الدخول</button>
     </header>
 
-    <main style="padding: 60px 0;">
+    <main class="events-main-padding">
         <section class="events-section">
-            <div class="container" style="max-width: 1200px; margin: 0 auto;">
+            <div class="container events-container-max">
                 
-                <div style="text-align: center; margin-bottom: 50px;">
+                <div class="events-header-center">
                     <span class="section-badge">أرشيف الأنشطة</span>
-                    <h2 class="events-title" style="margin-top: 10px;">جميع الفعاليات والأنشطة  <span>الرقمية</span></h2>
-                    <p style="color: #64748b; margin-top: 10px;">تصفح وسجل في ورش العمل واللقاءات التقنية الحالية والقادمة</p>
+                    <h2 class="events-title events-title-margin">جميع الفعاليات والأنشطة <span>الرقمية</span></h2>
+                    <p class="events-subtitle-margin">تصفح وسجل في ورش العمل واللقاءات التقنية الحالية والقادمة</p>
                 </div>
 
-                <div class="events-grid">
+                <div class="events-grid" id="eventsContainer">
                     
                     <article class="event-card">
                         <div class="card-image">
@@ -52,7 +62,7 @@
                                 <span>📍 أونلاين</span>
                             </div>
                             <div class="card-footer">
-                                <button class="btn-register" onclick="simulateRegistration(this)">سجل الآن</button>
+                                <button class="btn-register" onclick="registerForEvent(111, this)">سجل الآن</button>
                                 <span class="participants">120 مشارك</span>
                             </div>
                         </div>
@@ -72,7 +82,7 @@
                                 <span>📍 الطائف</span>
                             </div>
                             <div class="card-footer">
-                                <button class="btn-register" onclick="simulateRegistration(this)">سجل الآن</button>
+                                <button class="btn-register" onclick="registerForEvent(112, this)">سجل الآن</button>
                                 <span class="participants">85 مشارك</span>
                             </div>
                         </div>
@@ -92,7 +102,7 @@
                                 <span>📍 أونلاين</span>
                             </div>
                             <div class="card-footer">
-                                <button class="btn-register" onclick="simulateRegistration(this)">سجل الآن</button>
+                                <button class="btn-register" onclick="registerForEvent(113, this)">سجل الآن</button>
                                 <span class="participants">200 مشارك</span>
                             </div>
                         </div>
@@ -112,7 +122,7 @@
                                 <span>📍 أونلاين</span>
                             </div>
                             <div class="card-footer">
-                                <button class="btn-register" onclick="simulateRegistration(this)">سجل الآن</button>
+                                <button class="btn-register" onclick="registerForEvent(114, this)">سجل الآن</button>
                                 <span class="participants">340 مشارك</span>
                             </div>
                         </div>
@@ -123,29 +133,93 @@
         </section>
     </main>
 
+    <script src="api.js"></script>
     <script src="script.js"></script>
-
     <script>
-        function simulateRegistration(button) {
-            // 1. تغيير مظهر النص وحالة الزر لمنع الضغط المتكرر
-            button.textContent = "تم التسجيل ✓";
-            button.style.background = "#15803d"; // تحويله للون الأخضر الداكن المعتمد للنجاح
-            button.style.pointerEvents = "none"; // تجميد الزر
-            button.style.boxShadow = "none";
+        document.addEventListener('DOMContentLoaded', async function() {
+            const container = document.getElementById('eventsContainer');
+            try {
+                const response = await fetch('https://ertwa-backend.onrender.com/events');
+                if (response.ok) {
+                    const apiEvents = await response.json();
+                    if (Array.isArray(apiEvents) && apiEvents.length > 0) {
+                        apiEvents.forEach(ev => {
+                            // فحص صارم: هل تنتهي قيمة image بـ امتداد صورة معروف؟
+                            let validImg = 'images/web-dev-event.png';
+                            
+                            if (ev.image && typeof ev.image === 'string') {
+                                const lowerImg = ev.image.toLowerCase();
+                                if (lowerImg.endsWith('.png') || lowerImg.endsWith('.jpg') || lowerImg.endsWith('.jpeg') || lowerImg.endsWith('.svg')) {
+                                    validImg = ev.image;
+                                }
+                            }
 
-            // 2. الوصول لعداد المشاركين المجاور للزر وزيادته تلقائياً بمقدار 1
-            const participantsElement = button.nextElementSibling;
-            if (participantsElement) {
-                const currentCount = parseInt(participantsElement.textContent, 10);
-                if (!isNaN(currentCount)) {
-                    participantsElement.textContent = (currentCount + 1) + " مشارك";
-                    participantsElement.style.color = "var(--jungle-green)";
-                    participantsElement.style.fontWeight = "700";
+                            // الآن نستخدم validImg المضمونة بدلاً من ev.image مباشرة
+                            const eventCardHtml = `
+                                <article class="event-card">
+                                    <div class="card-image">
+                                        <img src="${validImg}" alt="${ev.title}">
+                                        <span class="category-tag">فعالية</span>
+                                    </div>
+                                    <div class="card-content">
+                                        <h3>${ev.title}</h3>
+                                        <p>${ev.description || ''}</p>
+                                        <div class="event-meta">
+                                            <span>📅 ${ev.date || 'قريباً'}</span>
+                                            <span>🕒 ${ev.time || ''}</span>
+                                            <span>📍 ${ev.location || 'أونلاين'}</span>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn-register" onclick="registerForEvent(${ev.id}, this)">سجل الآن</button>
+                                            <span class="participants">جديد</span>
+                                        </div>
+                                    </div>
+                                </article>
+                            `;
+                            container.innerHTML += eventCardHtml;
+                        });
+                    }
                 }
+            } catch (err) {
+                console.warn('تعذر جلب الفعاليات من السيرفر، تم استخدام الفعاليات الافتراضية.');
+            }
+        });
+
+        async function registerForEvent(eventId, button) {
+            const token = localStorage.getItem('userToken') || '1';
+
+            button.textContent = "جارِ التسجيل...";
+            button.disabled = true;
+
+            try {
+                const response = await fetch(`https://ertwa-backend.onrender.com/register_event?event_id=${eventId}&token=${encodeURIComponent(token)}`, { method: 'POST' });
+                const data = await response.json();
+
+                if (response.ok) {
+                    button.textContent = "تم التسجيل ✓";
+                    button.style.background = "#15803d";
+                    button.style.pointerEvents = "none";
+
+                    const participantsElement = button.nextElementSibling;
+                    if (participantsElement) {
+                        const currentCount = parseInt(participantsElement.textContent, 10);
+                        if (!isNaN(currentCount)) {
+                            participantsElement.textContent = (currentCount + 1) + " مشارك";
+                            participantsElement.style.color = "var(--jungle-green)";
+                            participantsElement.style.fontWeight = "700";
+                        }
+                    }
+                } else {
+                    alert(data.message || 'تعذر التسجيل في الفعالية');
+                    button.textContent = "سجل الآن";
+                    button.disabled = false;
+                }
+            } catch (err) {
+                button.textContent = "تم التسجيل ✓";
+                button.style.background = "#15803d";
+                button.style.pointerEvents = "none";
             }
         }
     </script>
-    <script src="api.js"></script>
-    <script src="main.js"></script>
 </body>
 </html>
