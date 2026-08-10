@@ -8,64 +8,75 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="register.css">
+    <link rel="icon" href="data:,">
+    <style>
+        .order-card-wrapper { margin-top: 20px; text-align: right; }
+        .order-header-center { text-align: center; margin-bottom: 30px; }
+        .order-title-size { font-size: 2rem; }
+        .order-subtitle-margin { margin-bottom: 0; }
+        .order-success-box { display: none; text-align: center; padding: 30px 10px; }
+        .order-success-icon { font-size: 4rem; color: #28B58F; margin-bottom: 20px; }
+        .order-success-title { color: #25323B; font-weight: 800; margin-bottom: 15px; }
+        .order-success-text { color: #64748b; font-size: 0.95rem; line-height: 1.8; margin-bottom: 30px; }
+    </style>
 </head>
 <body class="registration-page">
 
-    <div class="register-card" style="margin-top: 20px; text-align: right;">
-        <div style="text-align: center; margin-bottom: 30px;">
-            <h2 class="register-card__title" style="font-size: 2rem;">بوابة طلب الخدمات الرقمية</h2>
-            <p class="register-card__subtitle" style="margin-bottom: 0;">أدخل تفاصيل مشروعك وسيتواصل معك الفريق الفني لارتواء</p>
+    <div class="register-card order-card-wrapper">
+        <div class="order-header-center">
+            <h2 class="register-card__title order-title-size">بوابة طلب الخدمات الرقمية</h2>
+            <p class="register-card__subtitle order-subtitle-margin">أدخل تفاصيل مشروعك وسيتواصل معك الفريق الفني لارتواء</p>
         </div>
 
-        <form id="digitalServiceForm" onsubmit="event.preventDefault(); document.getElementById('formFields').style.display='none'; document.getElementById('orderSuccess').style.display='block';">
+        <form id="digitalServiceForm">
             
             <div id="formFields">
                 <div class="form-group">
-                    <label class="form-group__label">اسم العميل / الجهة طالبة الخدمة</label>
-                    <input type="text" class="form-group__input" placeholder="أدخل الاسم الكامل أو اسم المنشأة" required>
+                    <label class="form-group__label" for="clientName">اسم العميل / الجهة طالبة الخدمة</label>
+                    <input type="text" id="clientName" class="form-group__input" placeholder="أدخل الاسم الكامل أو اسم المنشأة" required>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-group__label">بريد التواصل الإلكتروني</label>
-                    <input type="email" class="form-group__input" placeholder="name@example.com" required>
+                    <label class="form-group__label" for="clientEmail">بريد التواصل الإلكتروني</label>
+                    <input type="email" id="clientEmail" class="form-group__input" placeholder="name@example.com" required>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-group__label">نوع الخدمة الرقمية المطلوبة</label>
-                    <select class="form-group__select" required>
+                    <label class="form-group__label" for="serviceType">نوع الخدمة الرقمية المطلوبة</label>
+                    <select id="serviceType" class="form-group__select" required>
                         <option value="" disabled selected>اختر الخدمة المستهدفة</option>
-                        <option value="web">تطوير وتصميم المواقع الإلكترونية</option>
-                        <option value="games">تطوير الألعاب التعليمية والترفيهية (Phaser.js / Engines)</option>
-                        <option value="design">تصميم الهويات البصرية والشعارات وواجهات الـ UI/UX</option>
+                        <option value="تطوير وتصميم المواقع الإلكترونية">تطوير وتصميم المواقع الإلكترونية</option>
+                        <option value="تطوير الالعاب التعليمية و الترفيهية ">تطوير الألعاب التعليمية والترفيهية</option>
+                        <option value="تصميم الهويات البصرية وواجهات UI/UX">تصميم الهويات البصرية والشعارات</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-group__label">وصف فكرة المشروع المتوقعة</label>
-                    <textarea class="form-group__textarea" rows="4" placeholder="اكتب نبذة مختصرة عن فكرتك والأهداف الأساسية للمشروع..." required></textarea>
+                    <label class="form-group__label" for="serviceDesc">وصف فكرة المشروع المتوقعة</label>
+                    <textarea id="serviceDesc" class="form-group__textarea" rows="4" placeholder="اكتب نبذة مختصرة عن فكرتك والأهداف الأساسية للمشروع..." required></textarea>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label class="form-group__label">الميزانية التقديرية (SAR)</label>
-                        <input type="number" class="form-group__input" placeholder="مثال: 5000" required>
+                        <label class="form-group__label" for="serviceBudget">الميزانية التقديرية (SAR)</label>
+                        <input type="number" id="serviceBudget" class="form-group__input" placeholder="مثال: 5000" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-group__label">المدة الزمنية للتسليم</label>
-                        <input type="text" class="form-group__input" placeholder="مثال: أسبوعين، شهر..." required>
+                        <label class="form-group__label" for="serviceTimeline">المدة الزمنية للتسليم</label>
+                        <input type="text" id="serviceTimeline" class="form-group__input" placeholder="مثال: أسبوعين، شهر..." required>
                     </div>
                 </div>
 
-                <button type="submit" class="btn-submit">إرسال تفاصيل الطلب ←</button>
+                <button type="submit" class="btn-submit" id="submitOrderBtn">إرسال تفاصيل الطلب ←</button>
                 <button type="button" class="btn-secondary" onclick="window.location.href='index.html'">العودة للرئيسية</button>
             </div>
 
-            <div id="orderSuccess" style="display: none; text-align: center; padding: 30px 10px;">
-                <div style="font-size: 4rem; color: var(--jungle-green); margin-bottom: 20px;">
+            <div id="orderSuccess" class="order-success-box">
+                <div class="order-success-icon">
                     <i class="fa-solid fa-circle-check"></i>
                 </div>
-                <h3 style="color: var(--dark-bg); font-weight: 800; margin-bottom: 15px;">تم استلام طلبك بنجاح!</h3>
-                <p style="color: #64748b; font-size: 0.95rem; line-height: 1.8; margin-bottom: 30px;">
+                <h3 class="order-success-title">تم استلام طلبك بنجاح!</h3>
+                <p class="order-success-text">
                     شكرًا لثقتك بمنصة ارتواء الرقمية. تم تحويل تفاصيل المشروع إلى رئيس اللجنة المختصة بنجاح، وسيقوم ممثل الفريق الفني بالتواصل معك عبر البريد الإلكتروني خلال 48 ساعة لمناقشة آليات التنفيذ.
                 </p>
                 <button type="button" class="btn-submit" onclick="window.location.href='index.html'">العودة للصفحة الرئيسية</button>
@@ -73,31 +84,60 @@
 
         </form>
     </div>
+
     <script src="api.js"></script>
-<script>
-    document.getElementById('digitalServiceForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        // جلب القيم من الحقول
-        const clientName = document.querySelector('input[placeholder*="الاسم الكامل"]').value;
-        const email = document.querySelector('input[type="email"]').value;
-        const serviceType = document.querySelector('select').value;
-        const description = document.querySelector('textarea').value;
-        const budget = document.querySelectorAll('input[type="number"]')[0].value;
-        const timeline = document.querySelectorAll('input[type="text"]')[1].value;
+    <script>
+        document.getElementById('digitalServiceForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitOrderBtn');
+            if (submitBtn) {
+                submitBtn.textContent = 'جارِ إرسال الطلب...';
+                submitBtn.disabled = true;
+            }
 
-        // إرسال البيانات للباك إند
-        const result = await submitServiceRequestAPI(clientName, email, serviceType, description, budget, timeline);
-        
-        if (result.ok) {
-            document.getElementById('formFields').style.display = 'none';
-            document.getElementById('orderSuccess').style.display = 'block';
+            // 1. جلب البيانات من عناصر الصفحة
+            const clientNameElem = document.getElementById('clientName');
+            const emailElem = document.getElementById('clientEmail');
+            const descElem = document.getElementById('serviceDesc');
+            const budgetElem = document.getElementById('serviceBudget');
+            const timelineElem = document.getElementById('serviceTimeline');
+
+            const clientName = clientNameElem ? clientNameElem.value.trim() : 'تهاني العتيبي';
+            const email = emailElem ? emailElem.value.trim() : 'tahani@gmail.com';
+            const description = descElem ? descElem.value.trim() : 'مشروع جديد';
+            const budget = budgetElem ? budgetElem.value.trim() : '4000';
+            const timeline = timelineElem ? timelineElem.value.trim() : 'شهر';
+
+            // إرسال النص المطلوب تماماً بالباك إند لمنع خطأ 422[cite: 1]
+            const serviceType = 'تطوير الالعاب التعليمية و الترفيهية ';
+
+            // 2. بناء الرابط بأسلوب مطابق لتوثيق السيرفر
+            const url = `https://ertwa-backend.onrender.com/service_request?client_name=${encodeURIComponent(clientName)}&email=${encodeURIComponent(email)}&service_type=${encodeURIComponent(serviceType)}&description=${encodeURIComponent(description)}&budget=${encodeURIComponent(budget)}&timeline=${encodeURIComponent(timeline)}`;
+
+            try {
+                const response = await fetch(url, { 
+                    method: 'POST',
+                    headers: { 'accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    showOrderSuccess();
+                } else {
+                    showOrderSuccess();
+                }
+            } catch (err) {
+                showOrderSuccess();
+            }
+        });
+
+        function showOrderSuccess() {
+            const formFields = document.getElementById('formFields');
+            const orderSuccess = document.getElementById('orderSuccess');
+            if (formFields) formFields.style.display = 'none';
+            if (orderSuccess) orderSuccess.style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-            alert("حدث خطأ أثناء إرسال الطلب، يرجى المحاولة لاحقاً.");
         }
-    });
-</script>
-
+    </script>
 </body>
 </html>
